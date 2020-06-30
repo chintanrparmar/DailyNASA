@@ -3,10 +3,12 @@ package com.crp.dailynasa.ui
 import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.ScrollingMovementMethod
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import coil.api.load
+import coil.request.CachePolicy
 import com.crp.dailynasa.data.model.ResponseData
 import com.crp.dailynasa.data.model.State
 import com.crp.dailynasa.databinding.ActivityMainBinding
@@ -82,6 +84,10 @@ class MainActivity : AppCompatActivity() {
     private fun renderData(responseData: ResponseData) {
         activityMainBinding.titleTv.text = responseData.title
         activityMainBinding.descTv.text = responseData.explanation
-        activityMainBinding.displayImage.load(responseData.url)
+        activityMainBinding.descTv.movementMethod=ScrollingMovementMethod()
+        activityMainBinding.displayImage.load(responseData.url){
+            crossfade(true)
+            memoryCachePolicy(CachePolicy.ENABLED)
+        }
     }
 }
